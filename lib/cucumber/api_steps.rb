@@ -44,7 +44,7 @@ Then /^the response status should be "([^\"]*)"$/ do |status|
   if page.respond_to? :should
     page.driver.last_response.status.should == status.to_i
   else
-    assert page.driver.last_response.status == status.to_i
+    assert_equal status.to_i, page.driver.last_response.status
   end
 end
 
