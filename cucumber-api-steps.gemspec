@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email       = ["jay.zeschin@factorylabs.com"]
   s.homepage    = "http://github.com/jayzes/cucumber-api-steps"
   s.summary     = %q{Cucumber steps to easily test REST-based XML and JSON APIs}
-  s.description = %q{TODO: Write a better gem description}
+  s.description = %q{Cucumber steps to easily test REST-based XML and JSON APIs}
   
   s.add_dependency 'jsonpath', '>= 0.1.2'
   s.add_dependency 'cucumber', '>= 0.8.3'
