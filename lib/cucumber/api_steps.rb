@@ -39,7 +39,11 @@ Then /^show me the response$/ do
 end
 
 Then /^the response status should be "([^\"]*)"$/ do |status|
-  page.driver.last_response.status.should == status.to_i
+  if page.respond_to? :should
+    page.driver.last_response.status.should == status.to_i
+  else
+    assert page.driver.last_response.status == status.to_i
+  end
 end
 
 Then /^the JSON response should have "([^\"]*)" with the text "([^\"]*)"$/ do |json_path, text|
