@@ -1,3 +1,5 @@
+require 'jsonpath'
+
 World(Rack::Test::Methods)
 
 Given /^I send and accept XML$/ do
