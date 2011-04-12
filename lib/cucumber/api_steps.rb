@@ -71,6 +71,11 @@ end
 Then /^the XML response should have "([^\"]*)" with the text "([^\"]*)"$/ do |xpath, text|
   parsed_response = Nokogiri::XML(last_response.body)
   elements = parsed_response.xpath(xpath)
-  elements.should_not be_empty, "could not find #{xpath} in:\n#{last_response.body}"
-  elements.find { |e| e.text == text }.should_not be_nil, "found elements but could not find #{text} in:\n#{elements.inspect}"
+  if page.respond_to? :should
+    elements.should_not be_empty, "could not find #{xpath} in:\n#{last_response.body}"
+    elements.find { |e| e.text == text }.should_not be_nil, "found elements but could not find #{text} in:\n#{elements.inspect}"
+  else
+    assert !elements.empty?, "could not find #{xpath} in:\n#{last_response.body}"
+    assert elements.find { |e| e.text == text }, "found elements but could not find #{text} in:\n#{elements.inspect}"
+  end    
 end
