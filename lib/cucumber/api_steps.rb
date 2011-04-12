@@ -43,13 +43,23 @@ Then /^the response status should be "([^\"]*)"$/ do |status|
 end
 
 Then /^the JSON response should have "([^\"]*)" with the text "([^\"]*)"$/ do |json_path, text|
-  json = JSON.parse(page.driver.last_response.body)
-  JsonPath.new(json_path).on(json).to_a.map(&:to_s).should include(text)
+  json    = JSON.parse(page.driver.last_response.body)
+  results = JsonPath.new(json_path).on(json).to_a.map(&:to_s)
+  if page.respond_to? :should
+    results.should include(text)
+  else
+    assert results.include?(text)
+  end
 end
 
 Then /^the JSON response should not have "([^\"]*)" with the text "([^\"]*)"$/ do |json_path, text|
-  json = JSON.parse(page.driver.last_response.body)
-  JsonPath.new(json_path).on(json).to_a.map(&:to_s).should_not include(text)
+  json    = JSON.parse(page.driver.last_response.body)
+  results = JsonPath.new(json_path).on(json).to_a.map(&:to_s) 
+  if page.respond_to? :should
+    results.should_not include(text)
+  else
+    assert !results.include?(text)
+  end
 end
 
 Then /^the XML response should have "([^\"]*)" with the text "([^\"]*)"$/ do |xpath, text|
