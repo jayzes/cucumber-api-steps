@@ -12,9 +12,10 @@ Gem::Specification.new do |s|
   s.summary     = %q{Cucumber steps to easily test REST-based XML and JSON APIs}
   s.description = %q{Cucumber steps to easily test REST-based XML and JSON APIs}
   
-  s.add_dependency 'jsonpath', '>= 0.1.2'
-  s.add_dependency 'cucumber', '>= 0.8.3'
-  s.add_development_dependency 'bueller'
+  s.add_dependency              'jsonpath', '>= 0.1.2'
+  s.add_dependency              'cucumber',  '>= 0.8.3'
+  s.add_development_dependency  'bueller'
+  s.add_development_dependency  'capybara'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
