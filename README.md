@@ -14,11 +14,11 @@ Requires [Cucumber](https://github.com/aslakhellesoy/cucumber) (obviously).  Als
 
 Add the following line to your Gemfile, preferably in the test or cucumber group:
 
-  gem 'cucumber-api-steps', :require => false
+    gem 'cucumber-api-steps', :require => false
 
 Then add the following line to your env.rb to make the step definitions available in your features:
 
-  require 'cucumber/api_steps'
+    require 'cucumber/api_steps'
   
 # Usage
 
