@@ -8,7 +8,7 @@ Adapted from [a blog post by Anthony Eden](http://www.anthonyeden.com/2010/11/te
 
 ## Dependencies
 
-Requires [Cucumber](https://github.com/aslakhellesoy/cucumber) (obviously).  Also makes use JSONPath for setting criteria against JSON responses.  See the gemspec for more info.
+Requires [Cucumber](https://github.com/aslakhellesoy/cucumber) (obviously).  Also makes use of [JSONPath](https://github.com/joshbuddy/jsonpath) for setting criteria against JSON responses.  See the gemspec for more info.
 
 ## Installation
 
