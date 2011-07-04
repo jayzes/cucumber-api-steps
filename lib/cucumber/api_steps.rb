@@ -7,11 +7,11 @@ Given /^I send and accept (XML|JSON)$/ do |type|
   page.driver.header 'Content-Type', "text/#{type.downcase}"
 end
 
-When /^I authenticate as the user "([^\"]*)" with the password "([^\"]*)"$/ do |user, pass|
+When /^I authenticate as the user "([^"]*)" with the password "([^"]*)"$/ do |user, pass|
   page.driver.authorize(user, pass)
 end
 
-When /^I send a (GET|POST|PUT|DELETE) request (?:for|to) "([^\"]*)"(with the following:)?$/ do |request_type, path, body|
+When /^I send a (GET|POST|PUT|DELETE) request (?:for|to) "([^"]*)" (?:with the following:)?$/ do |request_type, path, body|
   if body.present?
     page.driver.send(request_type.downcase.to_sym, path, body)
   else
@@ -23,7 +23,7 @@ Then /^show me the response$/ do
   p page.driver.last_response
 end
 
-Then /^the response status should be "([^\"]*)"$/ do |status|
+Then /^the response status should be "([^"]*)"$/ do |status|
   if page.respond_to? :should
     page.driver.last_response.status.should == status.to_i
   else
@@ -31,7 +31,7 @@ Then /^the response status should be "([^\"]*)"$/ do |status|
   end
 end
 
-Then /^the JSON response should (not)?\s?have "([^\"]*)" with the text "([^\"]*)"$/ do |negative, json_path, text|
+Then /^the JSON response should (not)?\s?have "([^"]*)" with the text "([^"]*)"$/ do |negative, json_path, text|
   json    = JSON.parse(page.driver.last_response.body)
   results = JsonPath.new(json_path).on(json).to_a.map(&:to_s)
   if page.respond_to?(:should)
@@ -49,7 +49,7 @@ Then /^the JSON response should (not)?\s?have "([^\"]*)" with the text "([^\"]*)
   end
 end
 
-Then /^the XML response should have "([^\"]*)" with the text "([^\"]*)"$/ do |xpath, text|
+Then /^the XML response should have "([^"]*)" with the text "([^"]*)"$/ do |xpath, text|
   parsed_response = Nokogiri::XML(last_response.body)
   elements = parsed_response.xpath(xpath)
   if page.respond_to?(:should)
