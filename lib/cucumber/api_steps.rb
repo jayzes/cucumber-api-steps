@@ -20,19 +20,19 @@ When /^I send a (GET|POST|PUT|DELETE) request (?:for|to) "([^"]*)" (?:with the f
 end
 
 Then /^show me the response$/ do
-  p page.driver.last_response
+  p page.driver.response
 end
 
 Then /^the response status should be "([^"]*)"$/ do |status|
   if page.respond_to? :should
-    page.driver.last_response.status.should == status.to_i
+    page.driver.response.status.should == status.to_i
   else
-    assert_equal status.to_i, page.driver.last_response.status
+    assert_equal status.to_i, page.driver.response.status
   end
 end
 
 Then /^the JSON response should (not)?\s?have "([^"]*)" with the text "([^"]*)"$/ do |negative, json_path, text|
-  json    = JSON.parse(page.driver.last_response.body)
+  json    = JSON.parse(page.driver.response.body)
   results = JsonPath.new(json_path).on(json).to_a.map(&:to_s)
   if page.respond_to?(:should)
     if negative.present?
