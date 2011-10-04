@@ -8,7 +8,17 @@ Given /^I send and accept (XML|JSON)$/ do |type|
 end
 
 When /^I authenticate as the user "([^"]*)" with the password "([^"]*)"$/ do |user, pass|
-  page.driver.authorize(user, pass)
+  if page.driver.respond_to?(:basic_auth)
+    page.driver.basic_auth(name, password)
+  elsif page.driver.respond_to?(:basic_authorize)
+    page.driver.basic_authorize(name, password)
+  elsif page.driver.respond_to?(:browser) && page.driver.browser.respond_to?(:basic_authorize)
+    page.driver.browser.basic_authorize(name, password)
+  elsif page.driver.respond_to?(:authorize)
+    page.driver.authorize(user, pass)
+  else
+    raise "I don't know how to log in!"
+  end
 end
 
 When /^I send a (GET|POST|PUT|DELETE) request (?:for|to) "([^"]*)" (?:with the following:)?$/ do |request_type, path, body|
