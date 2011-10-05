@@ -21,7 +21,7 @@ When /^I authenticate as the user "([^"]*)" with the password "([^"]*)"$/ do |us
   end
 end
 
-When /^I send a (GET|POST|PUT|DELETE) request (?:for|to) "([^"]*)"(?: with the following:)?$/ do |request_type, path, body|
+When /^I send a (GET|POST|PUT|DELETE) request (?:for|to) "([^"]*)"( with the following:)?$/ do |request_type, path, body|
   if body.present?
     page.driver.send(request_type.downcase.to_sym, path, body)
   else
