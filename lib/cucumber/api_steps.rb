@@ -3,8 +3,8 @@ require 'jsonpath'
 World(Rack::Test::Methods)
 
 Given /^I send and accept (XML|JSON)$/ do |type|
-  page.driver.header 'Accept', "text/#{type.downcase}"
-  page.driver.header 'Content-Type', "text/#{type.downcase}"
+  page.driver.header 'Accept', "application/#{type.downcase}"
+  page.driver.header 'Content-Type', "application/#{type.downcase}"
 end
 
 When /^I authenticate as the user "([^"]*)" with the password "([^"]*)"$/ do |user, pass|
