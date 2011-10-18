@@ -21,7 +21,10 @@ When /^I authenticate as the user "([^"]*)" with the password "([^"]*)"$/ do |us
   end
 end
 
-When /^I send a (GET|POST|PUT|DELETE) request (?:for|to) "([^"]*)"(?: with the following:)?$/ do |request_type, path, body|
+When /^I send a (GET|POST|PUT|DELETE) request (?:for|to) "([^"]*)"(?: with the following:)?$/ do |*args|
+  request_type = args.shift
+  path = args.shift
+  body = args.shift
   if body.present?
     page.driver.send(request_type.downcase.to_sym, path, body)
   else
@@ -70,3 +73,4 @@ Then /^the XML response should have "([^"]*)" with the text "([^"]*)"$/ do |xpat
     assert elements.find { |e| e.text == text }, "found elements but could not find #{text} in:\n#{elements.inspect}"
   end
 end
+
