@@ -33,7 +33,8 @@ When /^I send a (GET|POST|PUT|DELETE) request (?:for|to) "([^"]*)"(?: with the f
 end
 
 Then /^show me the response$/ do
-  p page.driver.response
+  json_response = JSON.parse(page.driver.response)
+  puts JSON.pretty_generate(json_response)
 end
 
 Then /^the response status should be "([^"]*)"$/ do |status|
