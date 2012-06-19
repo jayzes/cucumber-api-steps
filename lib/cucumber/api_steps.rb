@@ -1,6 +1,6 @@
 require 'jsonpath'
 
-World(Rack::Test::Methods)
+World(Rack::Test::Methods) if defined?(Rack)
 
 Given /^I send and accept (XML|JSON)$/ do |type|
   page.driver.header 'Accept', "application/#{type.downcase}"
