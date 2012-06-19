@@ -14,7 +14,6 @@ Gem::Specification.new do |s|
   
   s.add_dependency              'jsonpath', '>= 0.1.2'
   s.add_dependency              'cucumber',  '>= 0.8.3'
-  s.add_development_dependency  'bueller'
   s.add_development_dependency  'capybara'
 
   s.files         = `git ls-files`.split("\n")

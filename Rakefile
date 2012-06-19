@@ -1,8 +1,4 @@
-require 'bundler'
-Bundler::GemHelper.install_tasks
-
-require 'bueller'
-Bueller::Tasks.new
+require 'bundler/gem_tasks'
 
 require 'cucumber/rake/task'
 
