@@ -29,6 +29,10 @@ One major caveat is that the way the steps are currently built, the PUT and POST
 # Contributors
 * Jay Zeschin
 * Justin Smestad
+* Kevin Pfefferle
+* Kalys Osmonov
+* Mingding Han
+* Gabe Varela
 
 ## Copyright
 
