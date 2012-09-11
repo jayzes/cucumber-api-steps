@@ -50,6 +50,16 @@ Then /^the response status should be "([^"]*)"$/ do |status|
   end
 end
 
+Then /^the JSON response should be "([^"]*)"$/ do |raw_json|
+  json = JSON.parse(page.driver.response.body)
+  expected_json = JSON.parse(raw_json)
+  if page.respond_to? :should
+    json.should == expected_json
+  else
+    assert_equal expected_json, json
+  end
+end
+
 Then /^the JSON response should (not)?\s?have "([^"]*)" with the text "([^"]*)"$/ do |negative, json_path, text|
   json    = JSON.parse(page.driver.response.body)
   results = JsonPath.new(json_path).on(json).to_a.map(&:to_s)
