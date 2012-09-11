@@ -7,6 +7,11 @@ Given /^I send and accept (XML|JSON)$/ do |type|
   page.driver.header 'Content-Type', "application/#{type.downcase}"
 end
 
+Given /^I send and accept HTML$/ do
+  page.driver.header 'Accept', "text/html"
+  page.driver.header 'Content-Type', "application/x-www-form-urlencoded"
+end
+
 When /^I authenticate as the user "([^"]*)" with the password "([^"]*)"$/ do |user, pass|
   if page.driver.respond_to?(:basic_auth)
     page.driver.basic_auth(user, pass)
@@ -75,3 +80,23 @@ Then /^the XML response should have "([^"]*)" with the text "([^"]*)"$/ do |xpat
   end
 end
 
+Then 'the JSON response should be:' do |json|
+  expected = JSON.parse(json)
+  actual = JSON.parse(page.driver.response.body)
+
+  if page.respond_to?(:should)
+    actual.should == expected
+  else
+    assert_equal actual, response
+  end
+end
+
+Then /^the JSON response should have "([^"]*)" with a length of (\d+)$/ do |json_path, length|
+  json = JSON.parse(page.driver.response.body)
+  results = JsonPath.new(json_path).on(json)
+  if page.respond_to?(:should)
+    results.first.length.should == length.to_i
+  else
+    assert_equal length.to_i, results.first.length
+  end
+end
