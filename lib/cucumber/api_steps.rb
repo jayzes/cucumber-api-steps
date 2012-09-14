@@ -1,6 +1,17 @@
 require 'jsonpath'
 
-World(Rack::Test::Methods) if defined?(Rack)
+if defined?(Rack)
+
+  # Monkey patch Rack::MockResponse to work properly with response debugging
+  class Rack::MockResponse
+    def to_str
+      body
+    end
+  end
+
+  World(Rack::Test::Methods)
+
+end
 
 Given /^I send and accept (XML|JSON)$/ do |type|
   page.driver.header 'Accept', "application/#{type.downcase}"
