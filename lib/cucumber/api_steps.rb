@@ -13,6 +13,10 @@ if defined?(Rack)
 
 end
 
+Given /^I send and accept "(.*?)"$/ do |type|
+  page.driver.header 'Accept', type
+end
+
 Given /^I send and accept (XML|JSON)$/ do |type|
   page.driver.header 'Accept', "application/#{type.downcase}"
   page.driver.header 'Content-Type', "application/#{type.downcase}"
