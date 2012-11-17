@@ -13,6 +13,10 @@ if defined?(Rack)
 
 end
 
+Given /^I set headers:$/ do |headers|
+  headers.rows_hash.each {|k,v| header k, v }
+end
+
 Given /^I send and accept (XML|JSON)$/ do |type|
   header 'Accept', "application/#{type.downcase}"
   header 'Content-Type', "application/#{type.downcase}"
@@ -30,12 +34,19 @@ end
 When /^I send a (GET|POST|PUT|DELETE) request (?:for|to) "([^"]*)"(?: with the following:)?$/ do |*args|
   request_type = args.shift
   path = args.shift
-  body = args.shift
-  if body.present?
-    request path, method: request_type.downcase.to_sym, input: body
-  else
-    request path, method: request_type.downcase.to_sym
+  input = args.shift
+
+  request_opts = {method: request_type.downcase.to_sym}
+
+  unless input.nil?
+    if input.class == Cucumber::Ast::Table
+      request_opts[:params] = input.rows_hash
+    else
+      request_opts[:input] = input
+    end
   end
+
+  request path, request_opts
 end
 
 Then /^show me the response$/ do
@@ -44,7 +55,7 @@ Then /^show me the response$/ do
 end
 
 Then /^the response status should be "([^"]*)"$/ do |status|
-  if page.respond_to? :should
+  if self.respond_to? :should
     last_response.status.should == status.to_i
   else
     assert_equal status.to_i, last_response.status
