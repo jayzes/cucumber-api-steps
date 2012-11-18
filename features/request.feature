@@ -5,10 +5,7 @@ Feature:
       """
       I send a GET request to "/api/books"
       """
-    Then the response should equal:
-      """
-      {"books":[{"title":"Pride and prejudice"},{"title":"Metaprograming ruby"}]}
-      """
+    Then the response status should be "200"
 
   Scenario: POST request with params
     When I perform the following step with table:

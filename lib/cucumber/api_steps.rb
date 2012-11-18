@@ -1,4 +1,5 @@
 require 'jsonpath'
+require 'nokogiri'
 
 if defined?(Rack)
 
@@ -65,7 +66,7 @@ end
 Then /^the JSON response should (not)?\s?have "([^"]*)" with the text "([^"]*)"$/ do |negative, json_path, text|
   json    = JSON.parse(last_response.body)
   results = JsonPath.new(json_path).on(json).to_a.map(&:to_s)
-  if page.respond_to?(:should)
+  if self.respond_to?(:should)
     if negative.present?
       results.should_not include(text)
     else
@@ -83,7 +84,7 @@ end
 Then /^the XML response should have "([^"]*)" with the text "([^"]*)"$/ do |xpath, text|
   parsed_response = Nokogiri::XML(last_response.body)
   elements = parsed_response.xpath(xpath)
-  if page.respond_to?(:should)
+  if self.respond_to?(:should)
     elements.should_not be_empty, "could not find #{xpath} in:\n#{last_response.body}"
     elements.find { |e| e.text == text }.should_not be_nil, "found elements but could not find #{text} in:\n#{elements.inspect}"
   else
@@ -96,7 +97,7 @@ Then 'the JSON response should be:' do |json|
   expected = JSON.parse(json)
   actual = JSON.parse(last_response.body)
 
-  if page.respond_to?(:should)
+  if self.respond_to?(:should)
     actual.should == expected
   else
     assert_equal actual, response
@@ -106,9 +107,9 @@ end
 Then /^the JSON response should have "([^"]*)" with a length of (\d+)$/ do |json_path, length|
   json = JSON.parse(last_response.body)
   results = JsonPath.new(json_path).on(json)
-  if page.respond_to?(:should)
-    results.first.length.should == length.to_i
+  if self.respond_to?(:should)
+    results.length.should == length.to_i
   else
-    assert_equal length.to_i, results.first.length
+    assert_equal length.to_i, results.length
   end
 end

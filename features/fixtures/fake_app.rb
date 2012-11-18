@@ -14,7 +14,12 @@ module Rack
           {title: 'Pride and prejudice'},
           {title: 'Metaprograming ruby'}
         ]}
-        books.to_json
+
+        if request.accept.include? 'application/xml'
+          books.to_xml
+        else
+          books.to_json
+        end
       end
 
       post '/api/books' do

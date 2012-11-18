@@ -1,7 +1,8 @@
 require 'active_support/core_ext'
 
-When /^I perform the following step:$/ do |step_string|
-  step step_string
+When /^I perform the following steps?:$/ do |step_strings|
+  steps = step_strings.split("\n")
+  steps.each {|step_string| step step_string }
 end
 
 Then /^the response should equal:$/ do |response_body|
@@ -32,4 +33,8 @@ Then /^the request headers should be:$/ do |headers|
   headers_hash = headers.rows_hash
   request '/'
   last_request.env.slice(*headers_hash.keys).values.should eq(headers_hash.values)
+end
+
+Then /^I should be authenticated$/ do
+  last_request.env["HTTP_AUTHORIZATION"].should eq("Basic #{Base64.encode64("joe:god")}")
 end
