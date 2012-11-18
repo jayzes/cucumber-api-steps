@@ -38,3 +38,7 @@ end
 Then /^I should be authenticated$/ do
   last_request.env["HTTP_AUTHORIZATION"].should eq("Basic #{Base64.encode64("joe:god")}")
 end
+
+Then /^I should be digest authenticated$/ do
+  last_request.env["HTTP_AUTHORIZATION"].starts_with?("Digest ").should be_true
+end

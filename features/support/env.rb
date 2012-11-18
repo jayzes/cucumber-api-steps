@@ -8,5 +8,16 @@ require File.dirname(__FILE__) + "/../fixtures/fake_app"
 require 'cucumber/api_steps'
 
 def app
-  Rack::Lint.new(Rack::Test::FakeApp.new)
+  Rack::Lint.new(CucumberApiSteps::FakeApp.new)
+end
+
+Before("@digest-auth") do
+  def app
+    app = Rack::Auth::Digest::MD5.new(CucumberApiSteps::FakeApp.new) do |username|
+      { 'joe' => 'god' }[username]
+    end
+    app.realm = 'TestApi'
+    app.opaque = 'this-should-be-secret'
+    app
+  end
 end

@@ -32,6 +32,10 @@ When /^I authenticate as the user "([^"]*)" with the password "([^"]*)"$/ do |us
   authorize user, pass
 end
 
+When /^I digest\-authenticate as the user "(.*?)" with the password "(.*?)"$/ do |user, pass|
+  digest_authorize user, pass
+end
+
 When /^I send a (GET|POST|PUT|DELETE) request (?:for|to) "([^"]*)"(?: with the following:)?$/ do |*args|
   request_type = args.shift
   path = args.shift

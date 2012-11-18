@@ -11,4 +11,11 @@ Feature:
     Then I should be authenticated
 
 
-  Scenario: Digest authentication
+  @digest-auth
+  Scenario: Successful digest authentication
+    When I perform the following steps:
+      """
+      I digest-authenticate as the user "joe" with the password "god"
+      I send a GET request for "/"
+      """
+    Then I should be digest authenticated
