@@ -1,1 +1,1 @@
-rvm use ree@cucumber-api-steps
+rvm use 1.9.3@cucumber-api-steps
