@@ -55,8 +55,15 @@ When /^I send a (GET|POST|PUT|DELETE) request (?:for|to) "([^"]*)"(?: with the f
 end
 
 Then /^show me the response$/ do
-  json_response = JSON.parse(last_response.body)
-  puts JSON.pretty_generate(json_response)
+  if last_response.headers['Content-Type'] =~ /json/
+    json_response = JSON.parse(last_response.body)
+    puts JSON.pretty_generate(json_response)
+  elsif last_response.headers['Content-Type'] =~ /xml/
+    puts Nokogiri::XML(last_response.body)
+  else
+    puts last_response.headers
+    puts last_response.body
+  end
 end
 
 Then /^the response status should be "([^"]*)"$/ do |status|

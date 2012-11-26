@@ -48,3 +48,20 @@ Feature:
       I send a GET request to "/api/books"
       """
     Then the JSON response should have "$..title" with a length of 2
+
+  Scenario: Test debugging the XML response should not blow up
+    When I send and accept XML
+    And I perform the following step:
+      """
+      I send a GET request to "/api/books"
+      """
+    Then show me the response
+
+  Scenario: Test debugging the JSON response should not blow up
+    When I send and accept JSON
+    And I perform the following step:
+      """
+      I send a GET request to "/api/books"
+      """
+    Then show me the response
+

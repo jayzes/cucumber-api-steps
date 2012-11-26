@@ -13,8 +13,10 @@ module CucumberApiSteps
       ]}
 
       if request.accept.include? 'application/xml'
+        content_type :xml
         books.to_xml
       else
+        content_type :json
         books.to_json
       end
     end
