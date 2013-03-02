@@ -29,5 +29,10 @@ module CucumberApiSteps
       input_data = JSON.parse request.env["rack.input"].read, symbolize_names: true
       status 201 if input_data == {publisher: 'Pragprog'}
     end
+
+    put '/api/publishers/123' do
+      input_data = JSON.parse request.env["rack.input"].read, symbolize_names: true
+      status 200 if input_data == {publisher: 'Pragprog'}
+    end
   end
 end

@@ -14,6 +14,23 @@ if defined?(Rack)
 
 end
 
+module InstanceVarsInStepArguments
+  # @return [String] arg, replacing any '[@ivar.id]' sub strings by the value of @ivar.id
+  def interpolate_step_arg(arg)
+    r = /\[(@[^\]\s]+)\]/
+    arg && arg.gsub(r) do
+      name, field = $1 && $1.split('.')
+      puts name
+      puts field
+      ivar = instance_variable_get(name)
+      raise ArgumentError, "undefined instance variable '#{name}'" unless ivar
+      field ? ivar.send(field) : ivar
+    end
+  end
+end
+
+World(InstanceVarsInStepArguments)
+
 Given /^I set headers:$/ do |headers|
   headers.rows_hash.each {|k,v| header k, v }
 end
@@ -38,7 +55,7 @@ end
 
 When /^I send a (GET|POST|PUT|DELETE) request (?:for|to) "([^"]*)"(?: with the following:)?$/ do |*args|
   request_type = args.shift
-  path = args.shift
+  path = interpolate_step_arg(args.shift)
   input = args.shift
 
   request_opts = {method: request_type.downcase.to_sym}
