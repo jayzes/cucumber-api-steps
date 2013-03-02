@@ -20,8 +20,6 @@ module InstanceVarsInStepArguments
     r = /\[(@[^\]\s]+)\]/
     arg && arg.gsub(r) do
       name, field = $1 && $1.split('.')
-      puts name
-      puts field
       ivar = instance_variable_get(name)
       raise ArgumentError, "undefined instance variable '#{name}'" unless ivar
       field ? ivar.send(field) : ivar
