@@ -1,8 +1,6 @@
 # Cucumber API Steps
 
-[![Build Status](https://travis-ci.org/gonzalo-bulnes/cucumber-api-steps.png)](https://travis-ci.org/gonzalo-bulnes/cucumber-api-steps)
-
-Forked from [jayzes/cucumber-api-steps](https://github.com/jayzes/cucumber-api-steps).
+[![Build Status](https://travis-ci.org/jayzes/cucumber-api-steps.png)](https://travis-ci.org/jayzes/cucumber-api-steps)
 
 A set of [Cucumber](https://github.com/aslakhellesoy/cucumber) step definitions utilizing
 [Rack-Test](https://github.com/brynary/rack-test) that ease basic
