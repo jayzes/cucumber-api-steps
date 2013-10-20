@@ -1,6 +1,7 @@
-# Cucumber API Steps
+# cucumber-api-steps
 
 [![Build Status](https://travis-ci.org/jayzes/cucumber-api-steps.png)](https://travis-ci.org/jayzes/cucumber-api-steps)
+[![Gem Version](https://badge.fury.io/rb/cucumber-api-steps.png)](http://badge.fury.io/rb/cucumber-api-steps)
 
 A set of [Cucumber](https://github.com/aslakhellesoy/cucumber) step definitions utilizing
 [Rack-Test](https://github.com/brynary/rack-test) that ease basic
@@ -77,6 +78,9 @@ Still a work in progress.  For now, read the api_steps.rb file or check out the 
 * Kalys Osmonov
 * Mingding Han
 * Gabe Varela
+* Steven Heidel
+* Adam Elhardt
+* Gonzalo Bulnes Guilpain
 
 ## Copyright
 

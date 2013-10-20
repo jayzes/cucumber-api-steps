@@ -54,8 +54,10 @@ When /^I send a (GET|POST|PUT|DELETE) request (?:for|to) "([^"]*)"(?: with the f
   request path, request_opts
 end
 
-Then /^show me the response$/ do
-  if last_response.headers['Content-Type'] =~ /json/
+Then /^show me the (unparsed)?\s?response$/ do |unparsed|
+  if unparsed == 'unparsed'
+    puts last_response.body
+  elsif last_response.headers['Content-Type'] =~ /json/
     json_response = JSON.parse(last_response.body)
     puts JSON.pretty_generate(json_response)
   elsif last_response.headers['Content-Type'] =~ /xml/
@@ -73,6 +75,25 @@ Then /^the response status should be "([^"]*)"$/ do |status|
     assert_equal status.to_i, last_response.status
   end
 end
+
+Then /^the JSON response should (not)?\s?have "([^"]*)"$/ do |negative, json_path|
+  json    = JSON.parse(last_response.body)
+  results = JsonPath.new(json_path).on(json).to_a.map(&:to_s)
+  if self.respond_to?(:should)
+    if negative.present?
+      results.should be_empty
+    else
+      results.should_not be_empty
+    end
+  else
+    if negative.present?
+      assert results.empty?
+    else
+      assert !results.empty?
+    end
+  end
+end
+
 
 Then /^the JSON response should (not)?\s?have "([^"]*)" with the text "([^"]*)"$/ do |negative, json_path, text|
   json    = JSON.parse(last_response.body)
@@ -92,6 +113,24 @@ Then /^the JSON response should (not)?\s?have "([^"]*)" with the text "([^"]*)"$
   end
 end
 
+Then /^the XML response should (not)?\s?have "([^"]*)"$/ do |negative, xpath|
+  parsed_response = Nokogiri::XML(last_response.body)
+  elements = parsed_response.xpath(xpath)
+  if self.respond_to?(:should)
+    if negative.present?
+      elements.should be_empty
+    else
+      elements.should_not be_empty
+    end
+  else
+    if negative.present?
+      assert elements.empty?
+    else
+      assert !elements.empty?
+    end
+  end
+end
+
 Then /^the XML response should have "([^"]*)" with the text "([^"]*)"$/ do |xpath, text|
   parsed_response = Nokogiri::XML(last_response.body)
   elements = parsed_response.xpath(xpath)
@@ -104,7 +143,7 @@ Then /^the XML response should have "([^"]*)" with the text "([^"]*)"$/ do |xpat
   end
 end
 
-Then 'the JSON response should be:' do |json|
+Then /^the JSON response should be:$/ do |json|
   expected = JSON.parse(json)
   actual = JSON.parse(last_response.body)
 
