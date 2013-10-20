@@ -143,7 +143,7 @@ Then /^the XML response should have "([^"]*)" with the text "([^"]*)"$/ do |xpat
   end
 end
 
-Then 'the JSON response should be:' do |json|
+Then /^the JSON response should be:$/ do |json|
   expected = JSON.parse(json)
   actual = JSON.parse(last_response.body)
 
