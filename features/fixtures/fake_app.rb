@@ -12,12 +12,12 @@ module CucumberApiSteps
         {title: 'Metaprograming ruby'}
       ]}
 
-      if request.accept.include? 'application/xml'
-        content_type :xml
-        books.to_xml
-      else
+      if request.accept.empty? || request.accept?('application/json')
         content_type :json
         books.to_json
+      elsif request.accept?('application/xml') 
+        content_type :xml
+        books.to_xml
       end
     end
 
