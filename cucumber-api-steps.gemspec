@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{Cucumber steps to easily test REST-based XML and JSON APIs}
   s.description = %q{Cucumber steps to easily test REST-based XML and JSON APIs}
 
-  s.required_ruby_version = '~> 1.9.3'
+  s.required_ruby_version = '>= 1.9.3'
 
   s.add_dependency              'jsonpath', '>= 0.1.2'
   s.add_dependency              'cucumber',  '>= 1.2.1'
