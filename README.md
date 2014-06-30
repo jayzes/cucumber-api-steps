@@ -1,6 +1,6 @@
 # cucumber-api-steps
 
-[![Build Status](https://travis-ci.org/jayzes/cucumber-api-steps.png)](https://travis-ci.org/jayzes/cucumber-api-steps)
+[![Build Status](https://travis-ci.org/jveiga/cucumber-api-steps.png)](https://travis-ci.org/jayzes/cucumber-api-steps)
 [![Gem Version](https://badge.fury.io/rb/cucumber-api-steps.png)](http://badge.fury.io/rb/cucumber-api-steps)
 
 A set of [Cucumber](https://github.com/aslakhellesoy/cucumber) step definitions utilizing
