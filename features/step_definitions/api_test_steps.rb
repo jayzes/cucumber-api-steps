@@ -1,3 +1,4 @@
+require 'active_support'
 require 'active_support/core_ext'
 
 When /^I perform the following steps?:$/ do |step_strings|
