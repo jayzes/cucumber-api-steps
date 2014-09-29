@@ -7,7 +7,7 @@ A set of [Cucumber](https://github.com/aslakhellesoy/cucumber) step definitions 
 [Rack-Test](https://github.com/brynary/rack-test) that ease basic
 testing of REST-style APIs using either XML or JSON formats.
 
-Adapted from [a blog post by Anthony Eden](http://www.anthonyeden.com/2010/11/testing-rest-apis-with-cucumber-and-rack-test/) with a few additions based on my own needs.  I found myself copying these step definitions around to multiple projects, and decided that it would be worthwhile to gem them up to keep things nice and DRY.
+Adapted from [a blog post by Anthony Eden](http://anthonyeden.com/2013/07/10/testing-rest-apis-with-cucumber-and-rack.html) with a few additions based on my own needs.  I found myself copying these step definitions around to multiple projects, and decided that it would be worthwhile to gem them up to keep things nice and DRY.
 
 ## Dependencies
 
