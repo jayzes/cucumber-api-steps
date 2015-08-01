@@ -69,8 +69,8 @@ Then /^show me the (unparsed)?\s?response$/ do |unparsed|
 end
 
 Then /^the response status should be "([^"]*)"$/ do |status|
-  if self.respond_to? :should
-    last_response.status.should == status.to_i
+  if self.respond_to?(:expect)
+    expect(last_response.status).to eq(status.to_i)
   else
     assert_equal status.to_i, last_response.status
   end
@@ -79,11 +79,11 @@ end
 Then /^the JSON response should (not)?\s?have "([^"]*)"$/ do |negative, json_path|
   json    = JSON.parse(last_response.body)
   results = JsonPath.new(json_path).on(json).to_a.map(&:to_s)
-  if self.respond_to?(:should)
+  if self.respond_to?(:expect)
     if negative.present?
-      results.should be_empty
+      expect(results).to be_empty
     else
-      results.should_not be_empty
+      expect(results).not_to be_empty
     end
   else
     if negative.present?
@@ -98,11 +98,11 @@ end
 Then /^the JSON response should (not)?\s?have "([^"]*)" with the text "([^"]*)"$/ do |negative, json_path, text|
   json    = JSON.parse(last_response.body)
   results = JsonPath.new(json_path).on(json).to_a.map(&:to_s)
-  if self.respond_to?(:should)
+  if self.respond_to?(:expect)
     if negative.present?
-      results.should_not include(text)
+      expect(results).not_to include(text)
     else
-      results.should include(text)
+      expect(results).to include(text)
     end
   else
     if negative.present?
@@ -116,11 +116,11 @@ end
 Then /^the XML response should (not)?\s?have "([^"]*)"$/ do |negative, xpath|
   parsed_response = Nokogiri::XML(last_response.body)
   elements = parsed_response.xpath(xpath)
-  if self.respond_to?(:should)
+  if self.respond_to?(:expect)
     if negative.present?
-      elements.should be_empty
+      expect(elements).to be_empty
     else
-      elements.should_not be_empty
+      expect(elements).not_to be_empty
     end
   else
     if negative.present?
@@ -134,9 +134,9 @@ end
 Then /^the XML response should have "([^"]*)" with the text "([^"]*)"$/ do |xpath, text|
   parsed_response = Nokogiri::XML(last_response.body)
   elements = parsed_response.xpath(xpath)
-  if self.respond_to?(:should)
-    elements.should_not be_empty, "could not find #{xpath} in:\n#{last_response.body}"
-    elements.find { |e| e.text == text }.should_not be_nil, "found elements but could not find #{text} in:\n#{elements.inspect}"
+  if self.respond_to?(:expect)
+    expect(elements).not_to be_empty, "could not find #{xpath} in:\n#{last_response.body}"
+    expect(elements.find { |e| e.text == text }).not_to be_nil, "found elements but could not find #{text} in:\n#{elements.inspect}"
   else
     assert !elements.empty?, "could not find #{xpath} in:\n#{last_response.body}"
     assert elements.find { |e| e.text == text }, "found elements but could not find #{text} in:\n#{elements.inspect}"
@@ -147,8 +147,8 @@ Then /^the JSON response should be:$/ do |json|
   expected = JSON.parse(json)
   actual = JSON.parse(last_response.body)
 
-  if self.respond_to?(:should)
-    actual.should == expected
+  if self.respond_to?(:expect)
+    expect(actual).to eq(expected)
   else
     assert_equal actual, response
   end
@@ -157,8 +157,8 @@ end
 Then /^the JSON response should have "([^"]*)" with a length of (\d+)$/ do |json_path, length|
   json = JSON.parse(last_response.body)
   results = JsonPath.new(json_path).on(json)
-  if self.respond_to?(:should)
-    results.length.should == length.to_i
+  if self.respond_to?(:expect)
+    expect(results.length).to eq(length.to_i)
   else
     assert_equal length.to_i, results.length
   end
