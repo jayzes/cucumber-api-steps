@@ -47,7 +47,7 @@ When /^I send a (GET|POST|PUT|DELETE) request (?:for|to) "([^"]*)"(?: with the f
     if input.class == Cucumber::Ast::Table
       request_opts[:params] = input.rows_hash
     else
-      request_opts[:input] = input
+      request_opts[:input] = StringIO.new input
     end
   end
 
