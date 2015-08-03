@@ -15,7 +15,7 @@ module CucumberApiSteps
       if request.accept.empty? || request.accept?('application/json')
         content_type :json
         books.to_json
-      elsif request.accept?('application/xml') 
+      elsif request.accept?('application/xml')
         content_type :xml
         books.to_xml
       end
@@ -23,6 +23,10 @@ module CucumberApiSteps
 
     post '/api/books' do
       status 201 if params.values == ["Metaprograming ruby", "Pragprog"]
+    end
+
+    patch '/api/books' do
+      status 200 if params.values == ["Metaprograming ruby", "Pragprog"]
     end
 
     post '/api/publishers' do
