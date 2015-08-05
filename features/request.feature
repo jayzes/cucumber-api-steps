@@ -16,7 +16,7 @@ Feature:
       """
     Then the response status should be "201"
 
-  Scenario: POST request with params
+  Scenario: PATCH request with params
     When I perform the following step with table:
       """
       I send a PATCH request to "/api/books" with the following:
