@@ -7,7 +7,7 @@ When /^I perform the following steps?:$/ do |step_strings|
 end
 
 Then /^the response should equal:$/ do |response_body|
-  last_response.body.should eq(response_body)
+  expect(last_response.body).to eq(response_body)
 end
 
 When /^I perform the following step with table:$/ do |step_definition|
@@ -33,13 +33,13 @@ end
 Then /^the request headers should be:$/ do |headers|
   headers_hash = headers.rows_hash
   request '/'
-  last_request.env.slice(*headers_hash.keys).values.should eq(headers_hash.values)
+  expect(last_request.env.slice(*headers_hash.keys).values).to eq(headers_hash.values)
 end
 
 Then /^I should be authenticated$/ do
-  last_request.env["HTTP_AUTHORIZATION"].should eq("Basic #{Base64.encode64("joe:god")}")
+  expect(last_request.env["HTTP_AUTHORIZATION"]).to eq("Basic #{Base64.encode64("joe:god")}")
 end
 
 Then /^I should be digest authenticated$/ do
-  last_request.env["HTTP_AUTHORIZATION"].starts_with?("Digest ").should be_true
+  expect(last_request.env["HTTP_AUTHORIZATION"].starts_with?("Digest ")).to be true
 end
