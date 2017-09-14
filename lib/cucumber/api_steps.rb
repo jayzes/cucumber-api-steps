@@ -36,7 +36,25 @@ When /^I digest\-authenticate as the user "(.*?)" with the password "(.*?)"$/ do
   digest_authorize user, pass
 end
 
-When /^I send a (GET|PATCH|POST|PUT|DELETE) request (?:for|to) "([^"]*)"(?: with the following:)?$/ do |*args|
+When /^I send a (GET|POST|PUT|DELETE) request (?:for|to) "([^"]*)"(?: with the following:)?$/ do |*args|
+  request_type = args.shift
+  path = args.shift
+  input = args.shift
+
+  request_opts = {method: request_type.downcase.to_sym}
+
+  unless input.nil?
+    if input.class == Cucumber::MultilineArgument::DataTable
+      request_opts[:params] = input.rows_hash
+    else
+      request_opts[:input] = StringIO.new input
+    end
+  end
+
+  request path, request_opts
+end
+
+When /^I send a (PATCH) request (?:for|to) "([^"]*)"(?: with the following:)?$/ do |*args|
   request_type = args.shift
   path = args.shift
   input = args.shift
