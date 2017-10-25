@@ -4,3 +4,6 @@ Gemfile.lock
 pkg/*
 .DS_Store
 .idea
+
+# cucumber
+cucumber.html
