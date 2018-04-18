@@ -150,7 +150,7 @@ Then /^the JSON response should be:$/ do |json|
   if self.respond_to?(:expect)
     expect(actual).to eq(expected)
   else
-    assert_equal actual, response
+    assert_equal actual, expected
   end
 end
 
