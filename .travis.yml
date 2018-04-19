@@ -1,6 +1,8 @@
 language: ruby
 rvm:
-  - "2.2.8"
-  - "2.3.5"
-  - "2.4.2"
+  - 2.2.8
+  - 2.3.5
+  - 2.4.2
+  - 2.5.1
   - jruby-20mode # JRuby in 1.9 mode
+  - ruby-head
