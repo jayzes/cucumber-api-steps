@@ -37,7 +37,7 @@ Then /^the request headers should be:$/ do |headers|
 end
 
 Then /^I should be authenticated$/ do
-  expect(last_request.env["HTTP_AUTHORIZATION"]).to eq("Basic #{Base64.encode64("joe:god")}")
+  expect(last_request.env["HTTP_AUTHORIZATION"]).to eq("Basic #{Base64.strict_encode64("joe:god")}")
 end
 
 Then /^I should be digest authenticated$/ do
