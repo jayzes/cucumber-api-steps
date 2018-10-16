@@ -49,7 +49,7 @@ Feature: API
   Scenario: List tweets in XML
     When I send and accept XML
     And I send a GET request to "/api/tweets"
-    Then the XML response should have "tweet" with text "Hello World!"
+    Then the XML response should have "tweet" with the text "Hello World!"
 
   Scenario: Post tweet using POST-params
     When I send a POST request to "/api/tweets" with the following:
