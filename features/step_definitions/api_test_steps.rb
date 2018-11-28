@@ -1,9 +1,30 @@
 require 'active_support'
 require 'active_support/core_ext'
 
+Given /^I define instance variable (@[\w]+) = (.*)$/ do |name, value|
+  instance_variable_set(name, eval(value))
+end
+
 When /^I perform the following steps?:$/ do |step_strings|
   steps = step_strings.split("\n")
   steps.each {|step_string| step step_string }
+end
+
+When /^I perform the following steps which may raise ([\w]+)?:$/ do |exception_name, step_strings|
+  exception_type = exception_name.constantize
+  steps = step_strings.split("\n")
+  steps.each do |step_string|
+    begin
+      step step_string
+    rescue exception_type => ex
+      @last_exception = ex
+    end
+  end
+end
+
+Then /^([\w]+) was raised$/ do |exception_name|
+  exception_type = exception_name.constantize
+  @last_exception.should be_an_instance_of(exception_type)
 end
 
 Then /^the response should equal:$/ do |response_body|
