@@ -76,6 +76,14 @@ Then /^the response status should be "([^"]*)"$/ do |status|
   end
 end
 
+Then(/^the response content type should be (XML|JSON)$/) do |type|
+  if self.respond_to? :should
+    last_response.content_type.should include("application/#{type.downcase}")
+  else
+    assert last_response.content_type.include?("application/#{type.downcase}")
+  end
+end
+
 Then /^the JSON response should (not)?\s?have "([^"]*)"$/ do |negative, json_path|
   json    = JSON.parse(last_response.body)
   results = JsonPath.new(json_path).on(json).to_a.map(&:to_s)

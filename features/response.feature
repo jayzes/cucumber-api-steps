@@ -9,6 +9,15 @@ Feature:
       """
 
     Then the response status should be "200"
+    
+  Scenario: Test response content type
+    And I perform the following step:
+      """
+      I send and accept XML
+      I send a GET request to "/api/books"
+      """
+
+    Then the response content type should be XML
 
   Scenario: Test that JSON response contains a node
     When I perform the following step:
