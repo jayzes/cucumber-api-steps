@@ -64,11 +64,6 @@ Feature: API
     When I authenticate as the user "joe" with the password "password123"
     And I send a GET request to "/api/tweets"
     Then the response status should be "200"
-
-  Scenario: Digest authentication
-    When I digest-authenticate as the user "joe" with the password "password123"
-    And I send a GET request to "/api/tweets"
-    Then the response status should be "200"
 ```
 # Contributors
 * Jay Zeschin
