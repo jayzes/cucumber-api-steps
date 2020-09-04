@@ -5,7 +5,7 @@
 
 A set of [Cucumber](https://github.com/cucumber/cucumber) step definitions utilizing
 [Rack-Test](https://github.com/brynary/rack-test) that ease basic
-testing of REST-style APIs using either XML or JSON formats.
+testing of REST-style APIs JSON formats.
 
 Adapted from [a blog post by Anthony Eden](http://anthonyeden.com/2013/07/10/testing-rest-apis-with-cucumber-and-rack.html) with a few additions based on my own needs.  I found myself copying these step definitions around to multiple projects, and decided that it would be worthwhile to gem them up to keep things nice and DRY.
 
@@ -45,11 +45,6 @@ Feature: API
       """
     And the JSON response should have "$..tweet" with the text "Hello World!"
     And the JSON response should have "$..tweet" with a length of 2
-
-  Scenario: List tweets in XML
-    When I send and accept XML
-    And I send a GET request to "/api/tweets"
-    Then the XML response should have "tweet" with the text "Hello World!"
 
   Scenario: Post tweet using POST-params
     When I send a POST request to "/api/tweets" with the following:

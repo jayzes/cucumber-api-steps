@@ -10,8 +10,8 @@ Feature:
         | User-Agent | Cucumber Api Steps Client   |
       """
     Then the request headers should be:
-      | HTTP_ACCEPT     | application/vnd.myproject.v1 |
-      | HTTP_USER_AGENT | Cucumber Api Steps Client    |
+      | Accept     | application/vnd.myproject.v1 |
+      | User-Agent | Cucumber Api Steps Client    |
 
   Scenario: Send and accept JSON
     When I perform the following step:
@@ -19,8 +19,8 @@ Feature:
       I send and accept JSON
       """
     Then the request headers should be:
-      | HTTP_ACCEPT  | application/json |
-      | CONTENT_TYPE | application/json |
+      | Accept  | application/json |
+      | Content-Type | application/json |
 
   Scenario: Send and accept HTML
     When I perform the following step:
@@ -28,5 +28,5 @@ Feature:
       I send and accept HTML
       """
     Then the request headers should be:
-      | HTTP_ACCEPT  | text/html                         |
-      | CONTENT_TYPE | application/x-www-form-urlencoded |
+      | Accept  | text/html                         |
+      | Content-Type | application/x-www-form-urlencoded |

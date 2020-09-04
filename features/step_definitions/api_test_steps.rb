@@ -32,14 +32,9 @@ end
 
 Then /^the request headers should be:$/ do |headers|
   headers_hash = headers.rows_hash
-  request '/'
-  expect(last_request.env.slice(*headers_hash.keys).values).to eq(headers_hash.values)
+  expect(@headers.slice(*headers_hash.keys).values).to eq(headers_hash.values)
 end
 
 Then /^I should be authenticated$/ do
-  expect(last_request.env["HTTP_AUTHORIZATION"]).to eq("Basic #{Base64.strict_encode64("joe:god")}")
-end
-
-Then /^I should be digest authenticated$/ do
-  expect(last_request.env["HTTP_AUTHORIZATION"].starts_with?("Digest ")).to be true
+  expect(@headers['Authorization']).to eq("Basic #{Base64.strict_encode64("joe:god")}")
 end

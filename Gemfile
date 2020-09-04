@@ -2,11 +2,8 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'sinatra'
-gem 'rack-test'
 gem 'pry'
-gem 'activesupport'
-gem 'nokogiri'
+gem 'httparty'
 
 group :test do
   gem 'rake'

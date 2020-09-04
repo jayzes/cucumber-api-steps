@@ -9,16 +9,15 @@ Gem::Specification.new do |s|
   s.authors     = ["Jay Zeschin"]
   s.email       = ["jay@zeschin.org"]
   s.homepage    = "http://github.com/jayzes/cucumber-api-steps"
-  s.summary     = %q{Cucumber steps to easily test REST-based XML and JSON APIs}
-  s.description = %q{Cucumber steps to easily test REST-based XML and JSON APIs}
+  s.summary     = %q{Cucumber steps to easily test REST-based JSON APIs}
+  s.description = %q{Cucumber steps to easily test REST-based JSON APIs}
 
   s.required_ruby_version = '>= 1.9.3'
 
   s.add_dependency              'jsonpath',       '>= 0.1.2'
   s.add_dependency              'cucumber',       '>= 2.0.2'
-  s.add_development_dependency  'activesupport',  '>= 3.0.0'
   s.add_development_dependency  'rspec',          '~> 3.3.0'
-  s.add_development_dependency  'sinatra',        '~> 1.4.3'
+
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
